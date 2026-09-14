@@ -20,7 +20,7 @@
     --bad:#f87171;
     --warn:#fbbf24;
     --mono:'Consolas','SFMono-Regular',Menlo,Monaco,monospace;
-    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;}
   html,body{
@@ -50,8 +50,7 @@
   .row{display:flex;gap:28px;flex-wrap:wrap;}
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
   .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
-  .grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
-  @media (max-width:980px){.grid-2,.grid-3,.grid-5{grid-template-columns:1fr;}}
+  @media (max-width:980px){.grid-2,.grid-3{grid-template-columns:1fr;}}
 
   .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
   .card.good{border-color:rgba(52,211,153,.35);background:linear-gradient(180deg,rgba(52,211,153,.07),transparent);}
@@ -97,12 +96,10 @@
 
   pre.code{
     background:#0a0b10;border:1px solid var(--border);border-radius:10px;
-    padding:18px 20px;font-family:var(--mono);font-size:14px;line-height:1.6;
-    color:#d7e0ee;overflow-x:auto;
+    padding:16px 18px;font-family:var(--mono);font-size:13.5px;line-height:1.55;
+    color:#d7e0ee;overflow-x:auto;white-space:pre-wrap;
   }
-  pre.code .c1{color:var(--text-mute);}
-  pre.code .s1{color:var(--good);}
-  pre.code .k1{color:var(--accent2);}
+  pre.code.validate{border-color:rgba(52,211,153,.5);background:linear-gradient(180deg,rgba(52,211,153,.06),#0a0b10 40%);}
   code.inline{background:#0a0b10;border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-family:var(--mono);font-size:.92em;color:var(--accent);}
 
   .tree{font-family:var(--mono);font-size:14.5px;line-height:1.75;color:var(--text-dim);white-space:pre;}
@@ -115,28 +112,56 @@
   .callout.danger{border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.08);color:var(--bad);}
   .callout.info{border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:var(--accent);}
 
-  .mockup{background:#0c0e13;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);}
-  .mockup-bar{display:flex;align-items:center;gap:8px;background:#171a22;padding:10px 14px;border-bottom:1px solid var(--border);}
-  .mockup-bar .dot{width:10px;height:10px;border-radius:50%;}
-  .dot.r{background:#f87171;} .dot.a{background:#fbbf24;} .dot.g{background:#34d399;}
-  .mockup-url{margin-left:10px;background:#0e1016;border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-family:var(--mono);font-size:12.5px;color:var(--text-dim);flex:1;}
+  .validate-block{border:2px solid var(--good);background:linear-gradient(180deg,rgba(52,211,153,.1),transparent);border-radius:14px;padding:22px 26px;}
+  .validate-block .tag2{color:var(--good);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+  .validate-block p{color:var(--text);font-size:16.5px;line-height:1.6;font-style:italic;}
+
+  /* ===== Windows-style app chrome (VS Code / Browser) ===== */
+  .mockup{background:#0c0e13;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);}
+  .win-titlebar{display:flex;align-items:center;justify-content:space-between;background:#20232b;padding:0 0 0 12px;height:32px;}
+  .win-titlebar .app-title{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);}
+  .win-titlebar .app-title .ico{width:13px;height:13px;border-radius:3px;background:var(--accent2);display:inline-block;}
+  .win-controls{display:flex;height:32px;}
+  .win-controls span{width:40px;height:32px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-mute);}
+  .vscode-menu{display:flex;gap:14px;background:#252830;padding:5px 14px;font-size:11.5px;color:var(--text-dim);border-bottom:1px solid var(--border);}
+  .browser-tabs{display:flex;align-items:flex-end;gap:4px;background:#20232b;padding:8px 8px 0;}
+  .browser-tabs .tab{background:#2a2e38;border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;padding:7px 14px;font-size:11.5px;color:var(--text-dim);display:flex;align-items:center;gap:8px;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .browser-tabs .tab .fav{width:12px;height:12px;border-radius:3px;background:var(--accent);flex-shrink:0;}
+  .browser-tabs .newtab{color:var(--text-mute);padding:7px 10px 5px;font-size:14px;}
+  .browser-tabs .win-controls{margin-left:auto;}
+  .browser-nav{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#1c1f27;border-bottom:1px solid var(--border);}
+  .browser-nav .nav-ico{color:var(--text-mute);font-size:13px;}
+  .addr-bar{flex:1;background:#0e1016;border:1px solid var(--border);border-radius:16px;padding:6px 14px;font-family:var(--mono);font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
+  .addr-bar .lock{color:var(--good);font-size:10px;}
   .mockup-body{padding:18px 20px;font-size:14px;}
   .mockup-caption{margin-top:8px;font-size:12.5px;color:var(--text-mute);font-style:italic;}
-  .mockup-tabs{display:flex;gap:18px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;font-size:13px;color:var(--text-mute);}
-  .mockup-tabs span.on{color:var(--text);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:10px;margin-bottom:-11px;}
-  .btn-mock{display:inline-block;background:var(--good);color:#04160f;font-weight:700;font-size:13px;padding:7px 14px;border-radius:7px;}
+  .btn-mock{display:inline-flex;align-items:center;background:var(--good);color:#04160f;font-weight:700;font-size:13px;padding:7px 14px;border-radius:6px;}
   .btn-mock.blue{background:var(--accent);color:#031820;}
   .btn-mock.ghost{background:transparent;border:1px solid var(--border);color:var(--text-dim);}
-  .field-mock{background:#0e1016;border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-family:var(--mono);font-size:13px;color:var(--text-dim);margin:6px 0;}
+  .field-mock{background:#0e1016;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:13px;color:var(--text-dim);margin:6px 0;display:flex;align-items:center;}
   .radio-mock{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--text-dim);margin:6px 0;}
-  .radio-mock .dot-r{width:14px;height:14px;border-radius:50%;border:2px solid var(--text-mute);}
+  .radio-mock .dot-r{width:14px;height:14px;border-radius:50%;border:2px solid var(--text-mute);flex-shrink:0;}
   .radio-mock.checked .dot-r{border-color:var(--accent);background:radial-gradient(circle,var(--accent) 40%,transparent 44%);}
-  .sidebar-mock{width:150px;border-right:1px solid var(--border);padding-right:14px;font-size:13px;color:var(--text-mute);}
+  .sidebar-mock{width:150px;border-right:1px solid var(--border);padding-right:14px;font-size:12.5px;color:var(--text-mute);flex-shrink:0;}
   .sidebar-mock div{padding:6px 8px;border-radius:6px;margin-bottom:2px;}
   .sidebar-mock div.on{background:var(--panel);color:var(--text);font-weight:700;}
+  .sidebar-mock .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mute);margin:10px 0 2px;padding:0 8px;}
   .split{display:flex;gap:0;}
   .filelist{font-family:var(--mono);font-size:13px;color:var(--text-dim);}
   .filelist div{padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+  .settings-row{display:flex;justify-content:space-between;align-items:center;padding:8px 2px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text-dim);}
+  .tag-val{color:var(--accent);font-weight:700;font-size:12px;}
+  .toggle{width:28px;height:15px;border-radius:10px;background:var(--border);position:relative;display:inline-block;flex-shrink:0;}
+  .toggle.on{background:var(--good);}
+  .toggle:after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;}
+  .toggle.on:after{left:15px;}
+  .dropdown-card{background:#12141b;border:1px solid var(--border);border-radius:8px;padding:8px;margin-top:6px;max-width:170px;}
+  .pop-row{padding:5px 8px;font-size:12px;color:var(--text-dim);border-radius:5px;}
+  .pop-row.on{background:rgba(34,211,238,.12);color:var(--accent);font-weight:700;}
+
+  .num-badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:var(--accent);color:#031820;font-weight:800;font-size:11.5px;flex-shrink:0;}
+  .callout-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;}
+  .callout-legend .item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-dim);}
 
   .list-check li, .list-cross li{margin:8px 0;line-height:1.5;color:var(--text-dim);}
   ul.plain{list-style:none;padding:0;margin:0;}
@@ -154,6 +179,13 @@
 
   .quote{font-size:clamp(22px,2.6vw,32px);font-weight:800;text-align:center;line-height:1.4;max-width:920px;margin:0 auto;}
   .quote .accent-word{color:var(--accent);}
+
+  .stack{display:flex;flex-direction:column;max-width:480px;margin:0 auto;}
+  .stack .box{border:1px solid var(--border);background:var(--panel);padding:12px 20px;font-weight:700;font-size:14.5px;text-align:center;}
+  .stack .box:first-child{border-radius:10px 10px 0 0;}
+  .stack .box:last-child{border-radius:0 0 10px 10px;}
+  .stack .box.hi{border-color:var(--good);background:rgba(52,211,153,.12);color:var(--good);}
+  .stack .box + .box{border-top:none;}
 
   .notes{display:none;margin-top:22px;border-top:1px dashed var(--border);padding-top:14px;}
   body.show-notes .notes{display:block;}
@@ -179,10 +211,7 @@
   .click-zone{position:fixed;top:0;bottom:56px;width:7%;z-index:40;cursor:pointer;}
   .click-zone.l{left:0;} .click-zone.r{right:0;}
 
-  .divider-line{height:1px;background:var(--border);margin:6px 0 18px;}
   .foot-hint{color:var(--text-mute);font-size:13px;margin-top:10px;}
-  .two-col{display:flex;gap:34px;}
-  .two-col > div{flex:1;}
   .checklist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   @media (max-width:980px){.checklist-grid{grid-template-columns:1fr;}}
   .checklist-grid h3{color:var(--accent);font-size:14px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:10px;}
@@ -199,27 +228,27 @@
 <div class="progress" id="bar" style="width:0%"></div>
 <div class="deck" id="deck">
 
-  <!-- SLIDE 1 : TITLE -->
+  <!-- S1 : TITLE -->
   <section class="slide active">
     <div class="content" style="justify-content:center;align-items:flex-start;">
       <div class="kicker">Internal Knowledge Transfer · Hands-On Session</div>
       <h1>Using Claude with VS Code + GitHub +<br>Agentic AI + Deployment</h1>
-      <div class="sub">From an idea in Claude, to a working project in VS Code, to a live website anyone can open — the complete practical workflow, end to end.</div>
+      <div class="sub">From an idea in Claude, to a working project in VS Code, to a live website anyone can open — the complete practical workflow, end to end, on Windows.</div>
       <div class="big-flow" style="justify-content:flex-start;margin-top:10px;">
         <div class="node">CLAUDE</div><span class="arrow-r">→</span>
         <div class="node">VS CODE</div><span class="arrow-r">→</span>
         <div class="node">GITHUB</div><span class="arrow-r">→</span>
         <div class="node">LIVE URL</div>
       </div>
-      <div class="foot-hint">Presenter: [Your Name] &nbsp;·&nbsp; Date: [Session Date] &nbsp;·&nbsp; Team: Development / Product</div>
+      <div class="foot-hint">Presenter: [Your Name] &nbsp;·&nbsp; Date: [Session Date] &nbsp;·&nbsp; Team: Development / Product &nbsp;·&nbsp; Environment: Windows + VS Code + Edge/Chrome</div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Aaj hum ek complete journey dekhenge — Claude se code likhwana, VS Code mein kaam karna, GitHub par upload karna, aur ek live website deploy karke usko share karna. Yeh session mostly hands-on hai, theory bahut kam rakhi hai. GitHub ka poora kaam hum browser se karenge, terminal sirf end mein optional ke roop mein dikhayenge.</p>
+      <p>Aaj hum ek complete journey dekhenge — Claude se code likhwana, VS Code mein kaam karna, GitHub par upload karna, aur ek live website deploy karke usko share karna. Sab kuch Windows machine par, browser-first GitHub workflow ke saath dikhaya jaayega.</p>
     </div>
   </section>
 
-  <!-- SLIDE 2 : AGENDA -->
+  <!-- S2 : AGENDA -->
   <section class="slide">
     <div class="kicker">Section 1 · KT Objective</div>
     <h2>What Will We Learn?</h2>
@@ -246,11 +275,11 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Is slide mein main pura roadmap dikha raha hoon. Yeh session sirf "Claude kaise use karein" tak limited nahi hai — hum poora lifecycle cover karenge: AI se code banwana, usko GitHub par le jaana, deploy karna, aur sahi logon ke saath share karna.</p>
+      <p>Is slide mein main pura roadmap dikha raha hoon — AI se code banwana, GitHub par le jaana, deploy karna, aur sahi logon ke saath share karna.</p>
     </div>
   </section>
 
-  <!-- SLIDE 3 : WHAT IS CLAUDE -->
+  <!-- S3 : WHAT IS CLAUDE -->
   <section class="slide">
     <div class="kicker">Section 2 · Claude Introduction</div>
     <h2>What is Claude?</h2>
@@ -272,18 +301,18 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Claude ek AI assistant hai jo sirf chat tak limited nahi hai — yeh actual project files padh sakta hai, likh sakta hai, aur multiple files ke across changes bhi kar sakta hai. Hum is theory pe zyada time nahi denge, kyunki aaj ka focus practical usage hai.</p>
+      <p>Claude ek AI assistant hai jo actual project files padh, likh aur multiple files ke across changes kar sakta hai. Theory kam, practical zyada — yehi aaj ka focus hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 4: CLAUDE + VS CODE SETUP -->
+  <!-- S4: CLAUDE + VS CODE SETUP -->
   <section class="slide">
     <div class="kicker">Section 3 · Claude + VS Code</div>
-    <h2>Getting Set Up</h2>
+    <h2>Getting Set Up (Windows)</h2>
     <div class="content" style="flex-direction:row;gap:50px;">
       <div style="flex:1.3;">
         <ul class="plain num">
-          <li>Install / open <b style="color:var(--text)">VS Code</b></li>
+          <li>Install / open <b style="color:var(--text)">VS Code</b> on Windows</li>
           <li>Install and sign in to the Claude integration for VS Code</li>
           <li>Authenticate your account</li>
           <li>Open your <b style="color:var(--text)">project folder</b> as the workspace</li>
@@ -294,7 +323,7 @@
       <div style="flex:1;">
         <div class="flow compact" style="align-items:center;">
           <div class="flow-step" style="text-align:center;">USER</div><div class="flow-arrow">↓</div>
-          <div class="flow-step" style="text-align:center;">VS CODE</div><div class="flow-arrow">↓</div>
+          <div class="flow-step" style="text-align:center;">VS CODE (Windows)</div><div class="flow-arrow">↓</div>
           <div class="flow-step" style="text-align:center;">CLAUDE</div><div class="flow-arrow">↓</div>
           <div class="flow-step" style="text-align:center;">PROJECT WORKSPACE</div><div class="flow-arrow">↓</div>
           <div class="flow-step" style="text-align:center;">FILES</div>
@@ -303,17 +332,21 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Sabse pehle VS Code open karenge, phir Claude integration ko sign in karenge. Uske baad hum apne project ka folder workspace ke roop mein open karenge — yeh important hai kyunki Claude sirf usi folder ko "dekhta" hai jo workspace mein open hai.</p>
+      <p>Sabse pehle VS Code open karenge, phir Claude integration sign in karenge. Uske baad apne project ka folder workspace ke roop mein open karenge — Claude sirf usi folder ko "dekhta" hai jo workspace mein open hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 5: CLAUDE + VS CODE MOCKUP -->
+  <!-- S5: CLAUDE + VS CODE MOCKUP (WINDOWS) -->
   <section class="slide">
     <div class="kicker">Section 3 · Claude + VS Code</div>
     <h2>Inside VS Code with Claude</h2>
     <div class="content">
       <div class="mockup">
-        <div class="mockup-bar"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span><span class="mockup-url">VS Code — restaurant-schedule-dashboard</span></div>
+        <div class="win-titlebar">
+          <div class="app-title"><span class="ico"></span>restaurant-schedule-dashboard — Visual Studio Code</div>
+          <div class="win-controls"><span>─</span><span>▢</span><span>×</span></div>
+        </div>
+        <div class="vscode-menu"><span>File</span><span>Edit</span><span>Selection</span><span>View</span><span>Go</span><span>Run</span><span>Terminal</span><span>Help</span></div>
         <div class="mockup-body split">
           <div class="sidebar-mock">
             <div class="on">📁 restaurant-schedule-dashboard</div>
@@ -336,46 +369,63 @@
 7  &lt;/html&gt;</div>
           </div>
           <div style="flex:1;padding-left:18px;border-left:1px solid var(--border);">
-            <div style="font-size:12px;color:var(--accent2);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">✦ Claude</div>
+            <div style="font-size:12px;color:var(--accent2);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">✦ Claude · Sonnet 5 · Effort: High</div>
             <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--text-dim);margin-bottom:8px;">"Add a weekly calendar view to index.html, keep CSS/JS separate."</div>
             <div style="background:#0e1016;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--text-dim);">Planned changes: <br>• index.html<br>• css/style.css<br>• js/app.js<br><span class="btn-mock" style="margin-top:8px;">Approve</span> <span class="btn-mock ghost">Review diff</span></div>
           </div>
         </div>
       </div>
-      <div class="mockup-caption">Illustrative UI mockup — the real Claude Code / VS Code interface will be demonstrated live.</div>
+      <div class="mockup-caption">Illustrative mockup (Windows VS Code) — the real Claude Code / VS Code interface will be demonstrated live.</div>
       <div class="callout info" style="margin-top:14px;">Claude asks for permission before editing files or running terminal commands — always review before approving.</div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan dekhiye ek typical layout — left mein file tree, beech mein code editor, right mein Claude ka panel jahan hum request bhejte hain aur woh proposed changes dikhata hai. Approve karne se pehle hamesha diff review karo.</p>
+      <p>Yahan dekhiye ek typical Windows VS Code layout — top par menu bar (File, Edit, ...), left mein file tree, beech mein code editor, right mein Claude ka panel. Approve karne se pehle hamesha diff review karo.</p>
     </div>
   </section>
 
-  <!-- SLIDE 6: SETTINGS TABLE -->
+  <!-- S6: SETTINGS TABLE + MOCKUP -->
   <section class="slide">
-    <div class="kicker">Section 4 · Claude Model &amp; Settings</div>
+    <div class="kicker">Section 4 · Claude Models &amp; Settings</div>
     <h2>Settings Worth Knowing</h2>
-    <div class="content">
-      <table>
-        <thead><tr><th>Setting</th><th>What it controls</th><th>Beginner tip</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Model selection</strong></td><td>Which underlying Claude model handles your request</td><td>Use the team default unless told otherwise</td></tr>
-          <tr><td><strong>Effort / reasoning level</strong></td><td>How much the model "thinks" before responding</td><td>Match to task complexity — see next slide</td></tr>
-          <tr><td><strong>Context / workspace</strong></td><td>Which files &amp; folders Claude can currently see</td><td>Only open the project you're working on</td></tr>
-          <tr><td><strong>File access</strong></td><td>Whether Claude can create / edit files</td><td>Review every proposed change before accepting</td></tr>
-          <tr><td><strong>Terminal / tool access</strong></td><td>Whether Claude can run commands</td><td>Only approve commands you understand</td></tr>
-          <tr><td><strong>Auto vs. manual approval</strong></td><td>How much confirmation is required per action</td><td>Beginners: keep manual approval switched on</td></tr>
-        </tbody>
-      </table>
-      <div class="callout" style="margin-top:6px;">⚠ Exact labels can vary by VS Code / Claude version — confirm the live UI on your screen during the session.</div>
+    <div class="content" style="flex-direction:row;gap:40px;">
+      <div style="flex:1.4;">
+        <table>
+          <thead><tr><th>Setting</th><th>What it controls</th><th>Beginner tip</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Switch model</strong></td><td>Which underlying Claude model handles your request</td><td>Use the team default unless told otherwise</td></tr>
+            <tr><td><strong>Effort</strong></td><td>How much the model "thinks" before responding</td><td>Match to task complexity — see next slide</td></tr>
+            <tr><td><strong>Thinking</strong></td><td>Shows the model's step-by-step reasoning</td><td>Useful when reviewing a tricky change</td></tr>
+            <tr><td><strong>File / workspace access</strong></td><td>Which files &amp; folders Claude can see and edit</td><td>Only open the project you're working on</td></tr>
+            <tr><td><strong>Terminal / tool access</strong></td><td>Whether Claude can run commands</td><td>Only approve commands you understand</td></tr>
+            <tr><td><strong>Auto vs. manual approval</strong></td><td>How much confirmation is required per action</td><td>Beginners: keep manual approval switched on</td></tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top:14px;">⚠ Exact labels can vary by VS Code / Claude version — confirm the live UI on your screen during the session.</div>
+      </div>
+      <div style="flex:1;">
+        <div class="mockup">
+          <div class="win-titlebar"><div class="app-title"><span class="ico"></span>Claude — Settings</div></div>
+          <div class="mockup-body">
+            <div style="font-size:10.5px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Model</div>
+            <div class="settings-row">Switch model <span class="tag-val">Sonnet 5</span></div>
+            <div class="settings-row">Effort <span class="tag-val">High</span></div>
+            <div class="settings-row">Thinking <span class="toggle on"></span></div>
+            <div class="settings-row">Switch models when a message is flagged <span class="toggle on"></span></div>
+            <div style="font-size:10.5px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.06em;margin:10px 0 4px;">Account</div>
+            <div class="settings-row">Account &amp; usage <span style="color:var(--text-mute);">›</span></div>
+          </div>
+        </div>
+        <div class="mockup-caption">Illustrative mockup — Claude settings panel inside VS Code.</div>
+      </div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh settings ka overview hai — exact naam aur jagah aapke Claude/VS Code version ke hisaab se thoda change ho sakta hai, isliye main live screen par actual UI dikhaunga. Sabse important beginners ke liye: manual approval on rakho jab tak comfortable na ho jao.</p>
+      <p>Yeh settings ka overview hai — exact naam aur jagah aapke Claude/VS Code version ke hisaab se thoda change ho sakta hai, isliye main live screen par actual UI dikhaunga. Beginners ke liye: manual approval on rakho jab tak comfortable na ho jao.</p>
     </div>
   </section>
 
-  <!-- SLIDE 7: EFFORT LEVELS -->
+  <!-- S7: EFFORT LEVELS -->
   <section class="slide">
     <div class="kicker">Section 5 · Effort / Reasoning</div>
     <h2>Match Effort to the Task</h2>
@@ -405,33 +455,33 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Effort ya reasoning level ka matlab hai Claude kitna "soch" ke jawab de raha hai. Chhote kaam ke liye Low use karo — fast aur efficient. Complex debugging ya architecture ke liye High use karo. Hamesha High use karna zaroori nahi, aur kabhi kabhi waste bhi hota hai.</p>
+      <p>Effort ka matlab hai Claude kitna "soch" ke jawab de raha hai. Chhote kaam ke liye Low, complex debugging/architecture ke liye High. Hamesha High use karna zaroori nahi.</p>
     </div>
   </section>
 
-  <!-- SLIDE 8: FOLDER STRUCTURE -->
+  <!-- S8: FOLDER STRUCTURE -->
   <section class="slide">
-    <div class="kicker">Section 6 · Project Structure</div>
+    <div class="kicker">Section 6 · Project-Wise Folder Structure</div>
     <h2>One Project = One Project Folder</h2>
     <div class="content" style="flex-direction:row;gap:50px;">
       <div style="flex:1;">
-        <div class="tree">Projects/
+        <div class="tree">Projects\
 │
-├── <b>Restaurant-Schedule/</b>
+├── <b>Restaurant-Schedule\</b>
 │   ├── index.html
-│   ├── css/
+│   ├── css\
 │   │   └── style.css
-│   ├── js/
+│   ├── js\
 │   │   └── app.js
-│   ├── assets/
+│   ├── assets\
 │   ├── README.md
 │   └── .gitignore
 │
-├── <b>Employee-Dashboard/</b>
+├── <b>Employee-Dashboard\</b>
 │   ├── index.html
-│   ├── css/
-│   ├── js/
-│   └── assets/</div>
+│   ├── css\
+│   ├── js\
+│   └── assets\</div>
       </div>
       <div style="flex:1;">
         <div class="card accent"><h3>Why this matters</h3>
@@ -449,13 +499,13 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh rule bahut important hai — ek project, ek folder. Agar hum multiple projects ek hi folder mein rakhenge, toh Claude ka context confuse ho jaata hai aur GitHub upload/deployment bhi mushkil ho jaata hai.</p>
+      <p>Yeh rule bahut important hai — ek project, ek folder. Multiple projects ek hi folder mein rakhoge toh Claude ka context aur GitHub upload/deployment dono confusing ho jaate hain.</p>
     </div>
   </section>
 
-  <!-- SLIDE 9: BAD VS GOOD STRUCTURE -->
+  <!-- S9: BAD VS GOOD STRUCTURE -->
   <section class="slide">
-    <div class="kicker">Section 6 · Project Structure</div>
+    <div class="kicker">Section 6 · Project-Wise Folder Structure</div>
     <h2>Structure Comparison</h2>
     <div class="content">
       <div class="grid-2">
@@ -469,34 +519,34 @@
         </div>
         <div class="card good">
           <h3>✓ Good</h3>
-          <div class="tree">Project A/  → its own folder
+          <div class="tree">Project A\  → its own folder
             → its own Git repository
 
-Project B/  → its own folder
+Project B\  → its own folder
             → its own Git repository</div>
         </div>
       </div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Left side dekhiye — sab kuch ek hi jagah mixed hai, isse GitHub upload aur deployment dono confusing ho jaate hain. Right side ka approach follow karo: har project apna folder, apna repository.</p>
+      <p>Left side dekhiye — sab mixed hai, GitHub upload aur deployment dono confusing ho jaate hain. Right side follow karo: har project apna folder, apna repository.</p>
     </div>
   </section>
 
-  <!-- SLIDE 10: GIT-FRIENDLY DESIGN -->
+  <!-- S10: GIT-FRIENDLY DESIGN -->
   <section class="slide">
-    <div class="kicker">Section 7 · Git-Friendly Design</div>
+    <div class="kicker">Section 7 · Git-Friendly Project Design</div>
     <h2>Prefer HTML + CSS + JavaScript for Prototypes</h2>
     <div class="content" style="flex-direction:row;gap:50px;">
       <div style="flex:1;">
-        <div class="tree">restaurant-dashboard/
+        <div class="tree">restaurant-dashboard\
 │
 ├── index.html
-├── css/
+├── css\
 │   └── style.css
-├── js/
+├── js\
 │   └── app.js
-├── assets/
+├── assets\
 ├── README.md
 └── .gitignore</div>
       </div>
@@ -516,11 +566,11 @@ Project B/  → its own folder
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Simple UI ya prototype projects ke liye plain HTML/CSS/JS best hai — koi build step nahi, directly browser mein chalta hai, aur GitHub Pages par bina kisi extra setup ke deploy ho jaata hai.</p>
+      <p>Simple UI ya prototype projects ke liye plain HTML/CSS/JS best hai — koi build step nahi, GitHub Pages par bina extra setup ke deploy ho jaata hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 11: PROMPTING -->
+  <!-- S11: PROMPTING -->
   <section class="slide">
     <div class="kicker">Section 8 · Prompting Claude</div>
     <h2>Bad vs. Good Prompts</h2>
@@ -535,31 +585,175 @@ Project B/  → its own folder
           <pre class="code">"Create a responsive restaurant
 scheduling dashboard using HTML,
 CSS and vanilla JavaScript.
-
-Keep HTML, CSS and JavaScript in
-separate files, using this structure:
+Keep HTML, CSS and JS in separate
+files, using this structure:
   index.html
   css/style.css
   js/app.js
   assets/
 
-Make it a GitHub-ready project.
+Create a GitHub-ready project.
 Do not introduce a backend.
 Add README.md and .gitignore.
-Make the UI responsive and professional."</pre>
+Make the UI responsive and professional.
+
+Requirements:
+- Weekly view with editable shifts
+- Add / edit / delete a shift
+- No overlapping shifts
+- Works on desktop and mobile"</pre>
+          <pre class="code validate">"Before considering the task complete:
+1. Test the application.
+2. Sanity-check all major functionality.
+3. Verify all requirements are implemented.
+4. Check for broken links.
+5. Check HTML/CSS/JS errors.
+6. Check browser console errors.
+7. Check missing/incorrect file paths.
+8. Check responsive behaviour.
+9. Check obvious UI/UX issues.
+10. Fix any issues you find.
+11. Summarize what you tested and
+    mention any remaining limitations."</pre>
         </div>
       </div>
-      <p style="text-align:center;">Giving Claude structure <em>and</em> constraints produces a cleaner, more maintainable result.</p>
+      <p style="text-align:center;">Giving Claude structure, constraints — <em>and a validation step</em> — produces a cleaner, more trustworthy result.</p>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Vague prompt vague result deta hai. Jab hum structure, file names, aur constraints (jaise "no backend") clearly bata dete hain, toh Claude ka output directly GitHub-ready aur maintainable hota hai.</p>
+      <p>Vague prompt vague result deta hai. Structure, constraints, aur sabse important — end mein testing/validation instructions — dene se Claude ka output directly reliable aur GitHub-ready hota hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 12: AGENTIC AI -->
+  <!-- S12: ALWAYS ASK CLAUDE TO TEST & VALIDATE -->
   <section class="slide">
-    <div class="kicker">Section 9 · Agentic AI</div>
+    <div class="kicker">Section 9 · Test &amp; Validate</div>
+    <h2>Always Ask Claude to Test &amp; Validate Its Own Work</h2>
+    <div class="content">
+      <div class="validate-block">
+        <div class="tag2">Prompt Ending · Validation Block</div>
+        <p>"After implementing the changes, test the application yourself. Perform a sanity check of all major functionality, verify that the requested requirements have been implemented, check for obvious UI/UX issues, console errors, broken links, missing assets, incorrect file paths, and other obvious problems. If you find any issue, fix it before considering the task complete. Finally, provide a short summary of what you tested and any issues that remain."</p>
+      </div>
+      <div class="grid-2" style="margin-top:6px;">
+        <div class="card"><h3>Add this to almost every build/change prompt</h3><p>Especially for multi-file or agentic changes.</p></div>
+        <div class="card accent"><h3>What you get back</h3><p>A short, reviewable summary of what was tested — instead of silence and hope.</p></div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>Yeh ek "closing instruction" hai jo har major prompt ke end mein add karni chahiye — Claude ko khud apna kaam test aur validate karne ko bolo, aur ek short summary maango.</p>
+    </div>
+  </section>
+
+  <!-- S13: PROMPT STRUCTURE VISUAL -->
+  <section class="slide">
+    <div class="kicker">Section 10 · Prompt Structure</div>
+    <h2>Anatomy of a Good Prompt</h2>
+    <div class="content" style="align-items:center;">
+      <div class="stack">
+        <div class="box">1 · CONTEXT</div>
+        <div class="box">2 · OBJECTIVE</div>
+        <div class="box">3 · TECHNOLOGY</div>
+        <div class="box">4 · FILE STRUCTURE</div>
+        <div class="box">5 · REQUIREMENTS</div>
+        <div class="box">6 · CONSTRAINTS</div>
+        <div class="box hi">7 · TEST / SANITY CHECK</div>
+        <div class="box hi">8 · FIX ISSUES</div>
+      </div>
+      <div class="flow-h" style="justify-content:center;margin-top:18px;">
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Test</div><span class="arrow-r">→</span>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Validate</div><span class="arrow-r">→</span>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Fix</div>
+      </div>
+      <div class="quote" style="margin-top:14px;">"Don't just ask Claude to <span class="accent-word">build</span> it.<br>Ask Claude to <span class="accent-word">verify</span> it."</div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>Ek achhe prompt ke 8 hisse hote hain — last do sabse zyada ignore kiye jaate hain: test/sanity check aur fix issues. Yehi sabse zyada value add karte hain.</p>
+    </div>
+  </section>
+
+  <!-- S14: BAD VS GOOD - VALIDATION -->
+  <section class="slide">
+    <div class="kicker">Section 10 · Prompt Structure</div>
+    <h2>Bad vs. Good — Asking for Validation</h2>
+    <div class="content">
+      <div class="grid-2">
+        <div class="card bad">
+          <h3>✗ Weak</h3>
+          <pre class="code">"Create this website and let me
+know when you're done."</pre>
+        </div>
+        <div class="card good">
+          <h3>✓ Better</h3>
+          <pre class="code">"Create this website.
+
+After implementation, test the
+application, perform a sanity
+check, verify all requirements,
+check console errors, broken
+links, missing assets, responsive
+behaviour and obvious UI issues.
+Fix any issues you find before
+considering the task complete.
+Then summarize what you tested."</pre>
+        </div>
+      </div>
+      <div class="card accent">
+        <h3>Why the second one is better</h3>
+        <ul class="tight">
+          <li>"Done" no longer means "compiled" — it means "checked"</li>
+          <li>Claude owns the quality bar, not just the build step</li>
+          <li>Issues get caught before a human even opens the file</li>
+          <li>You get a verifiable summary you can review in seconds</li>
+        </ul>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>"Let me know when you're done" sirf yeh batata hai ki code likha gaya — yeh nahi batata ki woh kaam bhi karta hai. Validation instruction add karne se Claude khud apni quality check karta hai.</p>
+    </div>
+  </section>
+
+  <!-- S15: AI VALIDATION VS HUMAN REVIEW -->
+  <section class="slide">
+    <div class="kicker">Section 11 · AI Validation vs. Human Review</div>
+    <h2>AI Validation ≠ Human Review</h2>
+    <div class="content">
+      <div class="grid-2">
+        <div class="card accent">
+          <h3>🤖 AI Check</h3>
+          <ul class="plain good tight">
+            <li>Did I implement the requested feature?</li>
+            <li>Does the code run?</li>
+            <li>Are there obvious errors?</li>
+            <li>Are paths correct?</li>
+            <li>Are requirements present?</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🧑‍💻 Human Check</h3>
+          <ul class="plain good tight">
+            <li>Is this actually what the user/business wanted?</li>
+            <li>Is the implementation sensible?</li>
+            <li>Is the UX good?</li>
+            <li>Is the architecture appropriate?</li>
+            <li>Are there security concerns?</li>
+            <li>Are there unintended changes?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:8px;">"Let AI validate the <span class="accent-word">implementation</span>.<br>Let humans validate the <span class="accent-word">outcome</span>."</div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>AI apna kaam test kar sakta hai — kya feature bana, kya code chal raha hai. Lekin "kya yeh business ke liye sahi hai" ya "kya UX achha hai" — yeh judgment sirf insaan de sakta hai.</p>
+    </div>
+  </section>
+
+  <!-- S16: AGENTIC AI -->
+  <section class="slide">
+    <div class="kicker">Section 12 · Agentic AI</div>
     <h2>What is Agentic AI?</h2>
     <div class="content">
       <div class="grid-2">
@@ -589,13 +783,45 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Traditional AI mein hum sirf sawaal poochte hain aur jawab khud implement karte hain. Agentic AI mein hum ek objective dete hain, aur AI khud plan banata hai, files padhta hai, changes karta hai, commands chalata hai, aur test karta hai — bina har chhote step ke liye poochein.</p>
+      <p>Traditional AI mein hum sawaal poochte hain aur jawab khud implement karte hain. Agentic AI mein ek objective dete hain, aur AI khud plan banata hai, files modify karta hai, commands chalata hai, aur test karta hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 13: AGENTIC AI PROS/CONS -->
+  <!-- S17: AGENTIC AI + VALIDATION FLOW -->
   <section class="slide">
-    <div class="kicker">Section 10 · Agentic AI</div>
+    <div class="kicker">Section 12 · Agentic AI</div>
+    <h2>Agentic AI — With Built-In Validation</h2>
+    <div class="content" style="flex-direction:row;gap:44px;align-items:center;">
+      <div class="flow compact">
+        <div class="flow-step small">User</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small">Prompt</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small">Claude plans</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small">Claude implements</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Claude tests</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Claude validates</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Claude fixes</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small" style="border-left-color:var(--accent2);color:var(--accent2);">Human reviews</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small">Git</div><div class="flow-arrow">↓</div>
+        <div class="flow-step small">GitHub</div>
+      </div>
+      <div style="flex:1;">
+        <p style="color:var(--text);font-size:16.5px;">Agentic AI can perform more steps independently — so asking it to <strong>test and validate its own work</strong> makes the whole workflow stronger.</p>
+        <div class="callout danger">But: AI self-testing does NOT replace human review.</div>
+        <div class="card accent" style="margin-top:14px;text-align:center;">
+          <span class="chip">AI validation</span> &nbsp;+&nbsp; <span class="chip">Human validation</span>
+          <p style="margin-top:8px;">= the final review, every time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>Agentic AI zyada steps khud kar sakta hai, isliye usse apna kaam test/validate karne ko kehna workflow ko strong banata hai — lekin yeh human review ka replacement nahi hai. Final review hamesha AI validation + human validation hona chahiye.</p>
+    </div>
+  </section>
+
+  <!-- S18: AGENTIC AI PROS/CONS -->
+  <section class="slide">
+    <div class="kicker">Section 13 · Agentic AI Advantages &amp; Disadvantages</div>
     <h2>Advantages &amp; Disadvantages</h2>
     <div class="content">
       <div class="grid-2">
@@ -629,13 +855,13 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Agentic AI ka biggest advantage ye hai ki humein har chhota step manually batana zaroori nahi hota. Lekin isi wajah se risk bhi badhta hai, kyunki AI multiple files ya commands modify kar sakta hai. Isliye Git aur review bahut important hai — agla slide yehi dikhata hai.</p>
+      <p>Agentic AI ka biggest advantage — har chhota step manually batana zaroori nahi. Lekin risk bhi badhta hai, isliye Git aur review bahut important hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 14: SAFE WORKFLOW -->
+  <!-- S19: SAFE WORKFLOW -->
   <section class="slide">
-    <div class="kicker">Section 11 · Safe Agentic AI Workflow</div>
+    <div class="kicker">Section 14 · Safe Agentic AI Workflow</div>
     <h2>Review Before You Trust</h2>
     <div class="content">
       <div class="flow-h" style="justify-content:center;">
@@ -659,18 +885,18 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh safe workflow hamesha follow karo — AI ne change kiya, review karo, diff dekho, test karo, phir hi commit aur push karo. Isse galat ya unwanted changes production tak nahi pahunchte.</p>
+      <p>Yeh safe workflow hamesha follow karo — AI ne change kiya, review karo, diff dekho, test karo, phir hi commit aur push karo.</p>
     </div>
   </section>
 
-  <!-- SLIDE 15: GITHUB BASICS -->
+  <!-- S20: GITHUB BASICS -->
   <section class="slide">
-    <div class="kicker">Section 12 · GitHub Basics</div>
+    <div class="kicker">Section 15 · Git vs. GitHub</div>
     <h2>Git vs. GitHub</h2>
     <div class="content" style="flex-direction:row;gap:50px;">
       <div style="flex:1;">
         <div class="grid-2" style="gap:16px;">
-          <div class="card"><h3>Git</h3><p>A local version-control system that tracks changes to your files on your own computer.</p></div>
+          <div class="card"><h3>Git</h3><p>A local version-control system that tracks changes to your files on your own Windows machine.</p></div>
           <div class="card"><h3>GitHub</h3><p>An online platform where Git repositories can be stored, viewed, and shared with others.</p></div>
         </div>
         <div class="flow-h" style="justify-content:center;margin-top:20px;">
@@ -682,18 +908,18 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan main team ko pehle ye samjhaunga ki Git aur GitHub same cheez nahi hain. Git hamare local machine par version control karta hai, jabki GitHub us repository ko online store aur collaborate karne ke liye use hota hai.</p>
+      <p>Yahan main team ko pehle ye samjhaunga ki Git aur GitHub same cheez nahi hain. Git local version control karta hai, GitHub us repository ko online store/collaborate karne ke liye use hota hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 16: CREATE REPO -->
+  <!-- S21: CREATE REPO -->
   <section class="slide">
-    <div class="kicker">Section 13 · Create Repository — Browser UI</div>
+    <div class="kicker">Section 16 · Create GitHub Repository — Browser UI</div>
     <h2>Create a Repository, Step by Step</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
       <div style="flex:1;">
         <ul class="plain num">
-          <li>Open GitHub in your browser and log in</li>
+          <li>Open GitHub in Chrome/Edge and log in</li>
           <li>Click <b style="color:var(--text)">New repository</b></li>
           <li>Enter a repository name, e.g. <code class="inline">restaurant-schedule-dashboard</code></li>
           <li>Add a short description</li>
@@ -701,9 +927,16 @@ Make the UI responsive and professional."</pre>
           <li>Click <b style="color:var(--text)">Create repository</b></li>
         </ul>
       </div>
-      <div style="flex:1.1;">
+      <div style="flex:1.2;">
         <div class="mockup">
-          <div class="mockup-bar"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span><span class="mockup-url">github.com/new</span></div>
+          <div class="browser-tabs">
+            <div class="tab"><span class="fav"></span>New repository · GitHub</div><span class="newtab">+</span>
+            <div class="win-controls"><span>─</span><span>▢</span><span>×</span></div>
+          </div>
+          <div class="browser-nav">
+            <span class="nav-ico">‹</span><span class="nav-ico">›</span><span class="nav-ico">⟳</span>
+            <div class="addr-bar"><span class="lock">🔒</span>github.com/new</div>
+          </div>
           <div class="mockup-body">
             <h3 style="margin-bottom:14px;">Create a new repository</h3>
             <div style="font-size:12px;color:var(--text-mute);margin-bottom:4px;">Repository name</div>
@@ -711,13 +944,14 @@ Make the UI responsive and professional."</pre>
             <div style="font-size:12px;color:var(--text-mute);margin:10px 0 4px;">Description (optional)</div>
             <div class="field-mock">AI-assisted restaurant scheduling dashboard prototype</div>
             <div style="margin-top:12px;">
-              <div class="radio-mock checked"><span class="dot-r"></span> Public — anyone can view this repository</div>
-              <div class="radio-mock"><span class="dot-r"></span> Private — only you and people you invite</div>
+              <div class="radio-mock checked"><span class="dot-r"></span>Public — anyone can view this repository <span class="num-badge" style="margin-left:8px;">1</span></div>
+              <div class="radio-mock"><span class="dot-r"></span>Private — only you and people you invite</div>
             </div>
-            <div style="margin-top:16px;"><span class="btn-mock">Create repository</span></div>
+            <div style="margin-top:16px;"><span class="btn-mock">Create repository</span> <span class="num-badge" style="margin-left:8px;">2</span></div>
           </div>
         </div>
-        <div class="mockup-caption">Illustrative mockup — live GitHub UI shown during the session.</div>
+        <div class="mockup-caption">Illustrative mockup (Windows Edge/Chrome) — live GitHub UI shown during the session.</div>
+        <div class="callout-legend"><div class="item"><span class="num-badge">1</span>Choose Public or Private</div><div class="item"><span class="num-badge">2</span>Click Create repository</div></div>
       </div>
     </div>
     <div class="notes">
@@ -726,9 +960,9 @@ Make the UI responsive and professional."</pre>
     </div>
   </section>
 
-  <!-- SLIDE 17: PUBLIC VS PRIVATE -->
+  <!-- S22: PUBLIC VS PRIVATE -->
   <section class="slide">
-    <div class="kicker">Section 14 · Public vs. Private</div>
+    <div class="kicker">Section 17 · Public vs. Private</div>
     <h2>Choosing Repository Visibility</h2>
     <div class="content">
       <div class="grid-2">
@@ -749,13 +983,13 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh decision casually mat lo. Agar code company ya client se related hai, toh default Private rakho. Public sirf portfolio ya open-source jaise non-confidential cases ke liye hai.</p>
+      <p>Yeh decision casually mat lo. Company ya client se related code ho toh default Private rakho.</p>
     </div>
   </section>
 
-  <!-- SLIDE 18: UPLOAD VIA UI -->
+  <!-- S23: UPLOAD VIA UI -->
   <section class="slide">
-    <div class="kicker">Section 15 · Upload via Browser UI</div>
+    <div class="kicker">Section 18 · Upload Files — Browser UI</div>
     <h2>Upload Your Project — No Terminal Needed</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
       <div style="flex:1;">
@@ -764,100 +998,75 @@ Make the UI responsive and professional."</pre>
           <div class="flow-step small">Add file</div><div class="flow-arrow">↓</div>
           <div class="flow-step small">Upload files</div><div class="flow-arrow">↓</div>
           <div class="flow-step small">Select project files</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Upload</div><div class="flow-arrow">↓</div>
           <div class="flow-step small">Commit changes</div>
         </div>
       </div>
-      <div style="flex:1.1;">
+      <div style="flex:1.2;">
         <div class="mockup">
-          <div class="mockup-bar"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span><span class="mockup-url">github.com/.../restaurant-schedule-dashboard</span></div>
+          <div class="browser-tabs">
+            <div class="tab"><span class="fav"></span>restaurant-schedule-dashboard · GitHub</div><span class="newtab">+</span>
+            <div class="win-controls"><span>─</span><span>▢</span><span>×</span></div>
+          </div>
+          <div class="browser-nav">
+            <span class="nav-ico">‹</span><span class="nav-ico">›</span><span class="nav-ico">⟳</span>
+            <div class="addr-bar"><span class="lock">🔒</span>github.com/.../restaurant-schedule-dashboard</div>
+          </div>
           <div class="mockup-body">
-            <div class="mockup-tabs"><span>Code</span><span>Issues</span><span>Pull requests</span><span>Settings</span></div>
-            <div style="display:flex;gap:10px;margin-bottom:14px;">
-              <span class="btn-mock ghost">Add file ▾</span><span class="btn-mock blue">Upload files</span>
+            <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;">
+              <span class="btn-mock ghost">Add file ▾ <span class="num-badge" style="margin-left:6px;">1</span></span>
+              <span class="btn-mock blue">Upload files <span class="num-badge" style="margin-left:6px;">2</span></span>
             </div>
-            <div style="border:1px dashed var(--border);border-radius:8px;padding:20px;text-align:center;color:var(--text-mute);font-size:13px;">Drag files here, or choose your files</div>
+            <div style="border:1px dashed var(--border);border-radius:8px;padding:20px;text-align:center;color:var(--text-mute);font-size:13px;">Drag files here, or <u>choose your files</u> <span class="num-badge" style="margin-left:6px;">3</span></div>
             <div class="filelist" style="margin-top:12px;">
               <div>index.html <span style="color:var(--good);">✓</span></div>
-              <div>css/style.css <span style="color:var(--good);">✓</span></div>
-              <div>js/app.js <span style="color:var(--good);">✓</span></div>
-              <div>assets/ <span style="color:var(--good);">✓</span></div>
+              <div>css\style.css <span style="color:var(--good);">✓</span></div>
+              <div>js\app.js <span style="color:var(--good);">✓</span></div>
+              <div>assets\ <span style="color:var(--good);">✓</span></div>
               <div>README.md <span style="color:var(--good);">✓</span></div>
               <div>.gitignore <span style="color:var(--good);">✓</span></div>
             </div>
           </div>
         </div>
+        <div class="callout-legend"><div class="item"><span class="num-badge">1</span>Add file</div><div class="item"><span class="num-badge">2</span>Upload files</div><div class="item"><span class="num-badge">3</span>Drag or choose your files</div></div>
       </div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Repository page par jaake "Add file" → "Upload files" click karo, apne project ke saare files aur folders select karo, aur commit karo. Bilkul terminal ki zaroorat nahi.</p>
+      <p>Repository page par jaake "Add file" → "Upload files" click karo, apne Windows File Explorer se saare files/folders select karo, aur commit karo. Terminal ki zaroorat nahi.</p>
     </div>
   </section>
 
-  <!-- SLIDE 19: STRUCTURE AFTER UPLOAD -->
+  <!-- S24: COMMITTING -->
   <section class="slide">
-    <div class="kicker">Section 15 · Upload via Browser UI</div>
-    <h2>Keep the Structure Clean on GitHub</h2>
-    <div class="content" style="flex-direction:row;gap:60px;justify-content:center;">
-      <div>
-        <h3 style="color:var(--text-mute);">Local Project</h3>
-        <div class="tree">restaurant-schedule-dashboard
-│
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── app.js
-├── assets/
-├── README.md
-└── .gitignore</div>
-      </div>
-      <div style="align-self:center;font-size:28px;color:var(--text-mute);">=</div>
-      <div>
-        <h3 style="color:var(--accent);">GitHub Repository</h3>
-        <div class="tree">restaurant-schedule-dashboard
-│
-├── index.html
-├── css
-│   └── style.css
-├── js
-│   └── app.js
-├── assets
-├── README.md
-└── .gitignore</div>
-      </div>
-    </div>
-    <p style="text-align:center;">The GitHub repository should preserve the exact same clean structure as the local project.</p>
-    <div class="notes">
-      <div class="tag">Speaker Notes</div>
-      <p>Upload karte waqt dhyan rakho ki folder structure bilkul waisa hi rahe jaisa local mein tha. Agar structure mismatch ho gaya, toh baad mein deployment ke time paths break ho sakte hain.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 20: COMMITTING -->
-  <section class="slide">
-    <div class="kicker">Section 16 · Committing via Browser UI</div>
+    <div class="kicker">Section 19 · Commit Changes — Browser UI</div>
     <h2>Commit Your Changes</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
-      <div style="flex:1;">
-        <div class="flow compact">
-          <div class="flow-step small">Files uploaded</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Commit changes</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Commit message</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Commit directly to main</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Commit changes</div>
+      <div style="flex:1.1;">
+        <div class="mockup">
+          <div class="browser-tabs">
+            <div class="tab"><span class="fav"></span>Upload files · GitHub</div><span class="newtab">+</span>
+            <div class="win-controls"><span>─</span><span>▢</span><span>×</span></div>
+          </div>
+          <div class="browser-nav">
+            <span class="nav-ico">‹</span><span class="nav-ico">›</span><span class="nav-ico">⟳</span>
+            <div class="addr-bar"><span class="lock">🔒</span>github.com/.../restaurant-schedule-dashboard/upload</div>
+          </div>
+          <div class="mockup-body">
+            <div style="border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--good);font-size:12.5px;">✓ 6 files added</div>
+            <h3 style="margin-top:14px;">Commit changes</h3>
+            <div class="field-mock">Initial dashboard prototype <span class="num-badge" style="margin-left:6px;">1</span></div>
+            <div class="field-mock" style="color:var(--text-mute);min-height:16px;">Add an optional extended description…</div>
+            <div class="radio-mock checked" style="margin-top:8px;"><span class="dot-r"></span>Commit directly to the <b style="color:var(--text)">main</b> branch</div>
+            <div style="margin-top:12px;"><span class="btn-mock">Commit changes</span> <span class="num-badge" style="margin-left:8px;">2</span> <span class="btn-mock ghost" style="margin-left:8px;">Cancel</span></div>
+          </div>
         </div>
       </div>
       <div style="flex:1;">
         <div class="card">
-          <h3>Example commit message</h3>
-          <pre class="code">Initial dashboard prototype</pre>
-        </div>
-        <div class="card accent" style="margin-top:16px;">
-          <h3>Why it matters</h3>
+          <h3>Why meaningful commits matter</h3>
           <ul class="tight"><li>Explains <em>why</em>, not just <em>what</em></li><li>Makes history easy to scan later</li><li>Helps teammates understand changes</li><li>Essential when something needs to be reverted</li></ul>
         </div>
+        <div class="callout-legend" style="margin-top:10px;"><div class="item"><span class="num-badge">1</span>Write a meaningful message</div><div class="item"><span class="num-badge">2</span>Click Commit changes</div></div>
       </div>
     </div>
     <div class="notes">
@@ -866,9 +1075,60 @@ Make the UI responsive and professional."</pre>
     </div>
   </section>
 
-  <!-- SLIDE 21: GITHUB PAGES OVERVIEW -->
+  <!-- S25: GITHUB REPO BEST PRACTICES -->
   <section class="slide">
-    <div class="kicker">Section 17 · GitHub Pages Deployment</div>
+    <div class="kicker">Section 20 · GitHub Repository Best Practices</div>
+    <h2>Keep the Repository Clean</h2>
+    <div class="content" style="flex-direction:row;gap:50px;">
+      <div style="flex:1;">
+        <div class="two-col" style="display:flex;gap:30px;">
+          <div>
+            <h3 style="color:var(--text-mute);">Local Project</h3>
+            <div class="tree">restaurant-schedule-dashboard
+│
+├── index.html
+├── css\style.css
+├── js\app.js
+├── assets\
+├── README.md
+└── .gitignore</div>
+          </div>
+          <div>
+            <h3 style="color:var(--accent);">GitHub Repository</h3>
+            <div class="tree">restaurant-schedule-dashboard
+│
+├── index.html
+├── css/style.css
+├── js/app.js
+├── assets/
+├── README.md
+└── .gitignore</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div class="card accent">
+          <h3>Best practices</h3>
+          <ul class="tight">
+            <li>Keep the same clean structure on GitHub as locally</li>
+            <li>One repository per project</li>
+            <li>Always include a README.md</li>
+            <li>Always include a .gitignore</li>
+            <li>Use meaningful commit messages</li>
+            <li>Don't commit build artifacts, logs, or temp files</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>GitHub repository ka structure bilkul local project jaisa hi rakho. README aur .gitignore hamesha add karo, aur ek repo sirf ek project ke liye.</p>
+    </div>
+  </section>
+
+  <!-- S26: GITHUB PAGES OVERVIEW -->
+  <section class="slide">
+    <div class="kicker">Section 21 · GitHub Pages Deployment</div>
     <h2>Deploy with GitHub Pages</h2>
     <div class="content" style="flex-direction:row;gap:40px;align-items:center;">
       <div class="flow compact">
@@ -887,52 +1147,70 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Deployment ke liye hum GitHub Pages use karenge. Settings mein jaake Pages section open karenge, "Deploy from a branch" select karenge, main branch choose karenge, aur Save dabate hi GitHub apne aap deployment start kar dega.</p>
+      <p>Deployment ke liye GitHub Pages use karenge. Settings → Pages → "Deploy from a branch" → main branch → Save dabate hi GitHub apne aap deployment start kar dega.</p>
     </div>
   </section>
 
-  <!-- SLIDE 22: GITHUB PAGES UI MOCKUP -->
+  <!-- S27: SELECT MAIN + SAVE MOCKUP -->
   <section class="slide">
-    <div class="kicker">Section 17 · GitHub Pages Deployment</div>
+    <div class="kicker">Section 22 · Select main + Save</div>
     <h2>Configure Pages — What You'll Click</h2>
     <div class="content">
       <div class="mockup">
-        <div class="mockup-bar"><span class="dot r"></span><span class="dot a"></span><span class="dot g"></span><span class="mockup-url">github.com/.../restaurant-schedule-dashboard/settings/pages</span></div>
+        <div class="browser-tabs">
+          <div class="tab"><span class="fav"></span>Settings · Pages · GitHub</div><span class="newtab">+</span>
+          <div class="win-controls"><span>─</span><span>▢</span><span>×</span></div>
+        </div>
+        <div class="browser-nav">
+          <span class="nav-ico">‹</span><span class="nav-ico">›</span><span class="nav-ico">⟳</span>
+          <div class="addr-bar"><span class="lock">🔒</span>github.com/.../restaurant-schedule-dashboard/settings/pages</div>
+        </div>
         <div class="mockup-body split">
           <div class="sidebar-mock">
-            <div>General</div><div>Collaborators</div><div class="on">Pages</div><div>Actions</div><div>Webhooks</div>
+            <div class="grp">Access</div>
+            <div>Collaborators</div>
+            <div class="grp">Code &amp; automation</div>
+            <div>Actions</div>
+            <div class="on">Pages</div>
+            <div>Environments</div>
           </div>
           <div style="flex:1;padding-left:18px;">
             <h3>GitHub Pages</h3>
-            <div style="font-size:12px;color:var(--text-mute);margin:10px 0 4px;">Build and deployment — Source</div>
-            <div class="field-mock">Deploy from a branch ▾</div>
-            <div style="display:flex;gap:10px;margin-top:10px;">
+            <p style="font-size:12px;">Host a site directly from this repository.</p>
+            <div style="font-size:11px;color:var(--text-mute);margin:10px 0 4px;">Build and deployment — Source</div>
+            <div class="field-mock" style="max-width:210px;">Deploy from a branch ▾</div>
+            <div style="display:flex;gap:10px;margin-top:10px;align-items:flex-start;">
               <div>
-                <div style="font-size:12px;color:var(--text-mute);margin-bottom:4px;">Branch</div>
-                <div class="field-mock" style="color:var(--accent);font-weight:700;">main ▾</div>
+                <div style="font-size:11px;color:var(--text-mute);margin-bottom:4px;">Branch</div>
+                <div class="field-mock" style="color:var(--accent);font-weight:700;">main ▾ <span class="num-badge" style="margin-left:6px;">1</span></div>
+                <div class="dropdown-card">
+                  <div class="pop-row on">✓ main</div>
+                  <div class="pop-row">None</div>
+                </div>
               </div>
               <div>
-                <div style="font-size:12px;color:var(--text-mute);margin-bottom:4px;">Folder</div>
+                <div style="font-size:11px;color:var(--text-mute);margin-bottom:4px;">Folder</div>
                 <div class="field-mock">/(root) ▾</div>
               </div>
-              <div style="align-self:flex-end;"><span class="btn-mock">Save</span></div>
+              <div><span class="btn-mock">Save</span> <span class="num-badge" style="margin-left:6px;background:#04160f;">2</span></div>
             </div>
             <div style="margin-top:14px;font-size:12.5px;color:var(--good);">✓ Your site is live at username.github.io/restaurant-schedule-dashboard</div>
           </div>
         </div>
       </div>
-      <div class="mockup-caption">Illustrative mockup — actual GitHub Pages screen will be shown live.</div>
-      <p><code class="inline">/(root)</code> = deploy the whole repository as-is. <code class="inline">/docs</code> = deploy only the contents of a "docs" folder — useful when the site files live in a subfolder.</p>
+      <div class="mockup-caption">Illustrative mockup (Windows Edge/Chrome) — actual GitHub Pages screen will be shown live.</div>
+      <div class="callout-legend"><div class="item"><span class="num-badge">1</span>Select branch — choose <b style="color:var(--text)">main</b></div><div class="item"><span class="num-badge">2</span>Click Save to publish</div></div>
+      <p><code class="inline">/(root)</code> = deploy the whole repository as-is. <code class="inline">/docs</code> = deploy only a "docs" subfolder — useful when site files live in a subfolder.</p>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan sabse important dropdown hai "Branch" — hum main select karenge. Agar site files kisi subfolder mein hain toh /docs choose karo, warna /(root) hi rakho. Save dabane ke baad GitHub deployment start kar deta hai — thoda time lagta hai, instant nahi hota.</p>
+      <p>Yahan sabse important dropdown hai "Branch" — main select karenge. Agar site files kisi subfolder mein hain toh /docs choose karo, warna /(root) hi rakho. Save dabane ke baad GitHub deployment start kar deta hai — thoda time lagta hai, instant nahi hota.</p>
     </div>
   </section>
 
-  <!-- SLIDE 23: LIVE URL -->
+  <!-- S28: LIVE URL -->
   <section class="slide">
-    <div class="kicker">Section 18 · Live URL</div>
+    <div class="kicker">Section 23 · Live URL</div>
     <h2>Your Live URL</h2>
     <div class="content">
       <div class="flow-h" style="justify-content:center;">
@@ -957,13 +1235,13 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Do URLs mein confuse mat ho — repository URL code dekhne ke liye hai, live URL actual website use karne ke liye hai. Jab kisi ko demo share karna ho, live URL bhejo, repo URL nahi.</p>
+      <p>Do URLs mein confuse mat ho — repository URL code dekhne ke liye hai, live URL actual website use karne ke liye hai. Demo share karna ho toh live URL bhejo.</p>
     </div>
   </section>
 
-  <!-- SLIDE 24: TESTING -->
+  <!-- S29: TESTING -->
   <section class="slide">
-    <div class="kicker">Section 19 · Testing the Live Website</div>
+    <div class="kicker">Section 24 · Test the Live Website</div>
     <h2>Test Before You Share</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
       <div style="flex:1;">
@@ -995,13 +1273,13 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Deploy hone ke baad seedha kisi ko URL share mat karo — pehle khud test karo. Agar CSS ya JS load nahi ho raha, zyadatar case ye hota hai ki file path galat hai ya folder structure GitHub par match nahi karta.</p>
+      <p>Deploy hone ke baad seedha URL share mat karo — pehle khud test karo. CSS/JS load na ho toh zyadatar case ye hota hai ki file path galat hai ya folder structure GitHub par match nahi karta.</p>
     </div>
   </section>
 
-  <!-- SLIDE 25: UPDATE CYCLE -->
+  <!-- S30: UPDATE CYCLE -->
   <section class="slide">
-    <div class="kicker">Section 20 · Making Changes After Deployment</div>
+    <div class="kicker">Section 25 · Update &amp; Redeploy</div>
     <h2>Updating a Live Site</h2>
     <div class="content">
       <div class="flow-h" style="justify-content:center;">
@@ -1016,13 +1294,13 @@ Make the UI responsive and professional."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Website ko update karne ke liye redeploy manually trigger karne ki zaroorat nahi — jaise hi main branch par naya commit jaata hai, GitHub Pages automatically rebuild kar deta hai. Bas thoda time lagta hai.</p>
+      <p>Website update karne ke liye redeploy manually trigger karne ki zaroorat nahi — main branch par naya commit jaate hi GitHub Pages automatically rebuild kar deta hai. Thoda time lagta hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 26: ACCESS CONTROL -->
+  <!-- S31: ACCESS CONTROL -->
   <section class="slide">
-    <div class="kicker">Section 21 · Access Control</div>
+    <div class="kicker">Section 26 · Public vs. Private Access</div>
     <h2>Three Different Things</h2>
     <div class="content">
       <div class="grid-3">
@@ -1038,9 +1316,9 @@ Make the UI responsive and professional."</pre>
     </div>
   </section>
 
-  <!-- SLIDE 27: COLLABORATORS -->
+  <!-- S32: COLLABORATORS -->
   <section class="slide">
-    <div class="kicker">Section 22 · Give Access to Specific People</div>
+    <div class="kicker">Section 27 · Give Access to Specific People</div>
     <h2>Invite Collaborators (Private Repos)</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
       <div style="flex:1;">
@@ -1050,7 +1328,18 @@ Make the UI responsive and professional."</pre>
           <div class="flow-step small">Access / Collaborators</div><div class="flow-arrow">↓</div>
           <div class="flow-step small">Add people</div><div class="flow-arrow">↓</div>
           <div class="flow-step small">Search GitHub username</div><div class="flow-arrow">↓</div>
-          <div class="flow-step small">Invite</div>
+          <div class="flow-step small">Invite + assign permission</div>
+        </div>
+        <div class="mockup" style="margin-top:16px;">
+          <div class="browser-tabs">
+            <div class="tab"><span class="fav"></span>Settings · Collaborators</div><span class="newtab">+</span>
+          </div>
+          <div class="mockup-body">
+            <h3>Add collaborators to this repository</h3>
+            <p style="font-size:12px;">Search for people using their GitHub username or email address.</p>
+            <div class="field-mock">Search by username or email…</div>
+            <div style="margin-top:10px;"><span class="btn-mock ghost">Invite a collaborator</span> <span class="num-badge" style="margin-left:8px;">1</span></div>
+          </div>
         </div>
       </div>
       <div style="flex:1;">
@@ -1064,18 +1353,18 @@ Make the UI responsive and professional."</pre>
           </tbody>
         </table>
         <p style="font-size:12.5px;">Also available: <strong>Triage</strong> (manage issues/PRs without write access).</p>
-        <div class="callout" style="margin-top:10px;">Give the minimum permission required.</div>
+        <div class="callout" style="margin-top:10px;">Give the minimum permission required. <span class="num-badge" style="margin-left:6px;background:#04160f;color:var(--warn);">2</span></div>
       </div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Private repo mein kisi ko access dena ho toh Settings → Collaborators mein jaake unka GitHub username search karo aur invite karo. Hamesha minimum zaroori permission do — sabko Admin mat bana do.</p>
+      <p>Private repo mein kisi ko access dena ho toh Settings → Collaborators mein jaake unka GitHub username search karo, invite karo, aur minimum zaroori permission do — sabko Admin mat bana do.</p>
     </div>
   </section>
 
-  <!-- SLIDE 28: SECURITY -->
+  <!-- S33: SECURITY -->
   <section class="slide">
-    <div class="kicker">Section 23 · Security</div>
+    <div class="kicker">Section 28 · Security</div>
     <h2>Never Upload Secrets</h2>
     <div class="content" style="flex-direction:row;gap:44px;">
       <div style="flex:1;">
@@ -1083,6 +1372,7 @@ Make the UI responsive and professional."</pre>
           <li>API keys</li><li>Passwords</li><li>Tokens</li><li>Database credentials</li>
           <li>Client secrets</li><li>Private certificates</li><li>Production credentials</li>
         </ul>
+        <div class="callout danger" style="margin-top:14px;font-size:18px;">Never make confidential / company / client code Public.</div>
       </div>
       <div style="flex:1;">
         <div class="grid-2" style="gap:14px;">
@@ -1095,125 +1385,20 @@ a secure secret manager</pre></div>
           <pre class="code">.env
 node_modules/
 dist/
-.DS_Store</pre>
+Thumbs.db</pre>
         </div>
-        <div class="callout danger" style="margin-top:10px;">.gitignore does NOT remove a secret that has already been committed.</div>
+        <div class="callout" style="margin-top:10px;">.gitignore does NOT remove a secret that has already been committed.</div>
       </div>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Kabhi bhi API key, password, ya token directly code mein commit mat karo. .gitignore future commits ko rokta hai, lekin agar secret ek baar commit ho chuka hai, toh usse history se hataana alag process hai — sirf .gitignore add karne se woh gayab nahi hoga.</p>
+      <p>Kabhi bhi API key, password, ya token directly code mein commit mat karo. .gitignore future commits ko rokta hai — agar secret ek baar commit ho chuka hai, toh usse history se hataana alag process hai.</p>
     </div>
   </section>
 
-  <!-- SLIDE 29: GIT CLI OPTIONAL -->
+  <!-- S34: DO/DONT -->
   <section class="slide">
-    <div class="kicker">Section 24 · Optional / Secondary</div>
-    <h2>Optional: Git CLI Workflow</h2>
-    <div class="content" style="flex-direction:row;gap:44px;">
-      <div style="flex:1;">
-        <pre class="code">git init
-git status
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin &lt;repository-url&gt;
-git push -u origin main</pre>
-      </div>
-      <div style="flex:1;">
-        <div class="callout info">The primary beginner workflow stays the <strong>GitHub Browser UI</strong>. Use the CLI once you're comfortable with Git basics.</div>
-      </div>
-    </div>
-    <div class="notes">
-      <div class="tag">Speaker Notes</div>
-      <p>Yeh terminal-based Git workflow hai — optional hai aur baad mein seekhne ke liye hai. Aaj ke liye hamara primary tareeka GitHub browser UI hi rahega.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 30: DEMO PART 1 -->
-  <section class="slide">
-    <div class="kicker">Section 25 · Complete Demo — Restaurant Schedule Dashboard</div>
-    <h2>Demo Walkthrough — Part 1: Build</h2>
-    <div class="content" style="flex-direction:row;gap:44px;">
-      <div style="flex:1;">
-        <div class="tree">restaurant-schedule-dashboard/
-│
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── app.js
-├── assets/
-├── README.md
-└── .gitignore</div>
-      </div>
-      <div style="flex:1;">
-        <ul class="plain num">
-          <li>Create the project folder</li>
-          <li>Open it in VS Code</li>
-          <li>Open Claude</li>
-          <li>Give Claude the project requirements</li>
-          <li>Claude creates the HTML / CSS / JS</li>
-          <li>Review and test locally</li>
-        </ul>
-      </div>
-    </div>
-    <div class="notes">
-      <div class="tag">Speaker Notes</div>
-      <p>Ab hum ek real example ke through pura flow dekhenge. Restaurant Schedule Dashboard project folder banate hain, VS Code mein open karte hain, aur Claude ko clear requirements dete hain.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 31: DEMO PART 2 -->
-  <section class="slide">
-    <div class="kicker">Section 25 · Complete Demo — Restaurant Schedule Dashboard</div>
-    <h2>Demo Walkthrough — Part 2: Ship It</h2>
-    <div class="content">
-      <ul class="plain num" style="columns:2;column-gap:50px;">
-        <li>Create a GitHub repository using the browser UI</li>
-        <li>Choose Public / Private</li>
-        <li>Upload files using the GitHub browser UI</li>
-        <li>Commit changes</li>
-        <li>Go to Settings → Pages</li>
-        <li>Select "Deploy from a branch"</li>
-        <li>Branch: <code class="inline">main</code> · Folder: <code class="inline">/(root)</code></li>
-        <li>Click Save</li>
-        <li>Wait for deployment</li>
-        <li>Open the live URL</li>
-        <li>Share the URL</li>
-        <li>If private, add specific collaborators</li>
-      </ul>
-    </div>
-    <div class="notes">
-      <div class="tag">Speaker Notes</div>
-      <p>Ab hum wahi project GitHub par le jaayenge — repository banayenge, files upload karenge, Pages configure karenge, aur end mein live URL milega jise hum share kar sakte hain.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 32: END TO END VISUAL -->
-  <section class="slide">
-    <div class="kicker">Section 26 · The Complete Picture</div>
-    <h2>End-to-End, One Diagram</h2>
-    <div class="content" style="align-items:center;">
-      <div class="flow" style="align-items:center;">
-        <div class="flow-step" style="text-align:center;min-width:320px;">CLAUDE</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;">VS CODE</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;">PROJECT — HTML / CSS / JS</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;">GIT</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;">GITHUB — Repository</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;">GITHUB PAGES</div><div class="flow-arrow">↓</div>
-        <div class="flow-step" style="text-align:center;min-width:320px;border-left-color:var(--good);color:var(--good);">LIVE URL</div>
-      </div>
-    </div>
-    <div class="notes">
-      <div class="tag">Speaker Notes</div>
-      <p>Yeh poora flow ek nazar mein — Claude se le kar live URL tak. Isko yaad rakho, baaki sab isi ka detail hai.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 33: DO/DONT -->
-  <section class="slide">
-    <div class="kicker">Section 27 · Do / Don't</div>
+    <div class="kicker">Section 29 · Do / Don't</div>
     <h2>Quick Reference</h2>
     <div class="content">
       <div class="grid-2">
@@ -1223,8 +1408,8 @@ git push -u origin main</pre>
             <li>One project = one folder</li>
             <li>Prefer clean HTML/CSS/JS for simple prototypes</li>
             <li>Use Git from the beginning</li>
-            <li>Review AI changes</li>
-            <li>Review the Git diff</li>
+            <li>Ask Claude to test &amp; validate its own changes</li>
+            <li>Review AI changes and the Git diff</li>
             <li>Test before deployment</li>
             <li>Keep repository structure clean</li>
             <li>Use meaningful commits</li>
@@ -1238,11 +1423,11 @@ git push -u origin main</pre>
           <ul class="plain bad tight">
             <li>Mix multiple projects together</li>
             <li>Blindly trust Agentic AI</li>
+            <li>Treat AI's self-reported "tests passed" as human review</li>
             <li>Upload secrets</li>
             <li>Make confidential code Public</li>
             <li>Push untested code</li>
             <li>Give Admin access unnecessarily</li>
-            <li>Ignore repository visibility settings</li>
             <li>Assume a private repo means a private website</li>
           </ul>
         </div>
@@ -1254,9 +1439,9 @@ git push -u origin main</pre>
     </div>
   </section>
 
-  <!-- SLIDE 34: COMMON MISTAKES -->
+  <!-- S35: COMMON MISTAKES -->
   <section class="slide">
-    <div class="kicker">Section 28 · Common Mistakes</div>
+    <div class="kicker">Section 30 · Common Mistakes</div>
     <h2>Common Mistakes to Avoid</h2>
     <div class="content">
       <ul class="plain num" style="columns:2;column-gap:50px;">
@@ -1269,7 +1454,8 @@ git push -u origin main</pre>
         <li>Assuming deployment is instant</li>
         <li>Making sensitive code Public</li>
         <li>Uploading <code class="inline">.env</code></li>
-        <li>Blindly accepting AI-generated changes</li>
+        <li>Blindly accepting AI-generated changes without testing</li>
+        <li>Not asking Claude to validate its own output</li>
         <li>Giving unnecessary GitHub permissions</li>
         <li>Sharing the repository URL when the live URL was needed</li>
       </ul>
@@ -1280,16 +1466,16 @@ git push -u origin main</pre>
     </div>
   </section>
 
-  <!-- SLIDE 35: FINAL CHECKLIST -->
+  <!-- S36: FINAL CHECKLIST -->
   <section class="slide">
     <div class="kicker">Final Checklist</div>
     <h2>Ship-It Checklist</h2>
     <div class="content">
       <div class="checklist-grid">
         <div><h3>Before Development</h3><ul class="plain tight"><li>Project folder created</li><li>Claude configured</li><li>Correct model / effort selected</li><li>Requirements defined</li></ul></div>
-        <div><h3>During Development</h3><ul class="plain tight"><li>Clean HTML/CSS/JS structure</li><li>Claude changes reviewed</li><li>Application tested</li><li>Git / version control maintained</li></ul></div>
-        <div><h3>GitHub</h3><ul class="plain tight"><li>Repository created via GitHub UI</li><li>Correct Public/Private setting</li><li>Files uploaded</li><li>Folder structure verified</li><li>Commit message added</li></ul></div>
-        <div><h3>Deployment</h3><ul class="plain tight"><li>Settings → Pages</li><li>Deploy from branch</li><li>main selected</li><li>Correct folder selected</li><li>Save clicked</li><li>Deployment completed</li><li>Live URL tested</li></ul></div>
+        <div><h3>During Development</h3><ul class="plain tight"><li>Clean HTML/CSS/JS structure</li><li>Prompt includes a validation step</li><li>Claude changes reviewed &amp; tested</li><li>Git / version control maintained</li></ul></div>
+        <div><h3>GitHub</h3><ul class="plain tight"><li>Repository created via GitHub UI</li><li>Correct Public/Private setting</li><li>Files uploaded, structure verified</li><li>Commit message added</li></ul></div>
+        <div><h3>Deployment</h3><ul class="plain tight"><li>Settings → Pages</li><li>Deploy from branch, main selected</li><li>Correct folder selected</li><li>Save clicked, deployment completed</li><li>Live URL tested</li></ul></div>
         <div><h3>Sharing</h3><ul class="plain tight"><li>Repository visibility verified</li><li>Live URL verified</li><li>Collaborators added if required</li><li>Correct permissions assigned</li><li>No sensitive info exposed</li></ul></div>
       </div>
     </div>
@@ -1299,20 +1485,43 @@ git push -u origin main</pre>
     </div>
   </section>
 
-  <!-- SLIDE 36: FINAL -->
+  <!-- S37: END TO END VISUAL -->
   <section class="slide">
-    <div class="content" style="justify-content:center;align-items:center;text-align:center;gap:34px;">
+    <div class="kicker">Section 31 · End-to-End Architecture</div>
+    <h2>The Complete Picture</h2>
+    <div class="content" style="align-items:center;">
+      <div class="flow" style="align-items:center;">
+        <div class="flow-step" style="text-align:center;min-width:320px;">CLAUDE</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;">VS CODE (Windows)</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;">PROJECT — HTML / CSS / JS</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;">GIT</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;">GITHUB — Repository</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;">GITHUB PAGES</div><div class="flow-arrow">↓</div>
+        <div class="flow-step" style="text-align:center;min-width:320px;border-left-color:var(--good);color:var(--good);">LIVE URL</div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="tag">Speaker Notes</div>
+      <p>Yeh poora flow ek nazar mein — Claude se le kar live URL tak. Isko yaad rakho, baaki sab isi ka detail hai.</p>
+    </div>
+  </section>
+
+  <!-- S38: FINAL -->
+  <section class="slide">
+    <div class="kicker">Final Takeaway</div>
+    <div class="content" style="justify-content:center;align-items:center;text-align:center;gap:30px;">
       <div class="quote">"AI Makes Development Faster —<br>Git Makes It Safer —<br><span class="accent-word">Good Engineering Makes It Reliable.</span>"</div>
       <div class="flow-h" style="justify-content:center;">
         <div class="flow-step small">Plan</div><span class="arrow-r">→</span>
         <div class="flow-step small">Prompt</div><span class="arrow-r">→</span>
         <div class="flow-step small">Generate</div><span class="arrow-r">→</span>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Test</div><span class="arrow-r">→</span>
+        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Validate</div><span class="arrow-r">→</span>
         <div class="flow-step small">Review</div><span class="arrow-r">→</span>
-        <div class="flow-step small">Test</div><span class="arrow-r">→</span>
         <div class="flow-step small">Git</div><span class="arrow-r">→</span>
         <div class="flow-step small">GitHub</div><span class="arrow-r">→</span>
         <div class="flow-step small">Deploy</div><span class="arrow-r">→</span>
-        <div class="flow-step small" style="border-left-color:var(--good);color:var(--good);">Share</div>
+        <div class="flow-step small" style="border-left-color:var(--accent2);color:var(--accent2);">Share</div>
       </div>
       <p style="font-size:20px;font-weight:700;color:var(--text);max-width:760px;">Use AI as a development accelerator — not as a replacement for engineering judgment.</p>
       <p class="foot-hint">Thank you — questions?</p>
@@ -1329,6 +1538,7 @@ git push -u origin main</pre>
 <div class="click-zone r" id="zoneR"></div>
 <div class="chrome">
   <div class="footer-bar">
+    <div class="footer-left">KT · Claude + VS Code + GitHub + Deployment</div>
     <div class="footer-right">
       <button class="notes-toggle" id="notesToggle">🗣 Notes (N)</button>
       <button class="nav-btn" id="prev">‹</button>
