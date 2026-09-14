@@ -19,8 +19,25 @@
     --good:#34d399;
     --bad:#f87171;
     --warn:#fbbf24;
+    --card-shadow:none;
     --mono:'Consolas','SFMono-Regular',Menlo,Monaco,monospace;
     --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  }
+  :root[data-theme="light"]{
+    --bg:#f7f8fb;
+    --bg-alt:#eef1f6;
+    --panel:#ffffff;
+    --card:#ffffff;
+    --border:#dde2ec;
+    --text:#1a1d29;
+    --text-dim:#4a5068;
+    --text-mute:#7c839a;
+    --accent:#0e7490;
+    --accent2:#7c3aed;
+    --good:#047857;
+    --bad:#b91c1c;
+    --warn:#b45309;
+    --card-shadow:0 1px 3px rgba(16,24,40,.06);
   }
   *{box-sizing:border-box;}
   html,body{
@@ -28,6 +45,19 @@
     background:var(--bg);color:var(--text);
     font-family:var(--sans);
     -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    transition:background .2s ease,color .2s ease;
+  }
+  /* Mockups always render as fixed-dark "app/browser" chrome, regardless of page theme */
+  .mockup{
+    --border:#2b3040;
+    --text:#eef0f4;
+    --text-dim:#a2a9b8;
+    --text-mute:#6b7284;
+    --accent:#22d3ee;
+    --accent2:#a78bfa;
+    --good:#34d399;
+    --bad:#f87171;
+    --warn:#fbbf24;
   }
   .deck{position:relative;width:100%;height:100vh;overflow:hidden;}
   .slide{
@@ -52,7 +82,7 @@
   .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
   @media (max-width:980px){.grid-2,.grid-3{grid-template-columns:1fr;}}
 
-  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;box-shadow:var(--card-shadow);}
   .card.good{border-color:rgba(52,211,153,.35);background:linear-gradient(180deg,rgba(52,211,153,.07),transparent);}
   .card.bad{border-color:rgba(248,113,113,.35);background:linear-gradient(180deg,rgba(248,113,113,.07),transparent);}
   .card.accent{border-color:rgba(34,211,238,.4);}
@@ -194,9 +224,13 @@
 
   .chrome{position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none;}
   .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:60;transition:width .2s ease;}
-  .footer-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 26px;pointer-events:auto;}
-  .footer-left{font-size:12px;color:var(--text-mute);}
+  .footer-bar{display:flex;align-items:center;justify-content:flex-end;padding:12px 26px;pointer-events:auto;}
   .footer-right{display:flex;align-items:center;gap:10px;}
+  .theme-toggle{
+    background:var(--panel);border:1px solid var(--border);color:var(--text-dim);font-size:13px;
+    width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
   .nav-btn{
     background:var(--panel);border:1px solid var(--border);color:var(--text);
     width:36px;height:36px;border-radius:8px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -244,7 +278,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Aaj hum ek complete journey dekhenge — Claude se code likhwana, VS Code mein kaam karna, GitHub par upload karna, aur ek live website deploy karke usko share karna. Sab kuch Windows machine par, browser-first GitHub workflow ke saath dikhaya jaayega.</p>
+      <p>Today we'll walk through a complete journey — writing code with Claude, working in VS Code, uploading to GitHub, and deploying a live website to share. Everything will be shown on a Windows machine, using a browser-first GitHub workflow.</p>
     </div>
   </section>
 
@@ -275,7 +309,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Is slide mein main pura roadmap dikha raha hoon — AI se code banwana, GitHub par le jaana, deploy karna, aur sahi logon ke saath share karna.</p>
+      <p>This slide shows the full roadmap — generating code with AI, pushing it to GitHub, deploying it, and sharing it with the right people.</p>
     </div>
   </section>
 
@@ -301,7 +335,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Claude ek AI assistant hai jo actual project files padh, likh aur multiple files ke across changes kar sakta hai. Theory kam, practical zyada — yehi aaj ka focus hai.</p>
+      <p>Claude is an AI assistant that can read, write, and make changes across multiple actual project files. Less theory, more practical — that's today's focus.</p>
     </div>
   </section>
 
@@ -332,7 +366,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Sabse pehle VS Code open karenge, phir Claude integration sign in karenge. Uske baad apne project ka folder workspace ke roop mein open karenge — Claude sirf usi folder ko "dekhta" hai jo workspace mein open hai.</p>
+      <p>First we'll open VS Code, then sign in to the Claude integration. After that, we'll open our project folder as the workspace — Claude only "sees" the folder that's open as the workspace.</p>
     </div>
   </section>
 
@@ -380,7 +414,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan dekhiye ek typical Windows VS Code layout — top par menu bar (File, Edit, ...), left mein file tree, beech mein code editor, right mein Claude ka panel. Approve karne se pehle hamesha diff review karo.</p>
+      <p>Here's a typical Windows VS Code layout — the menu bar (File, Edit, ...) at the top, the file tree on the left, the code editor in the middle, and Claude's panel on the right. Always review the diff before approving.</p>
     </div>
   </section>
 
@@ -421,7 +455,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh settings ka overview hai — exact naam aur jagah aapke Claude/VS Code version ke hisaab se thoda change ho sakta hai, isliye main live screen par actual UI dikhaunga. Beginners ke liye: manual approval on rakho jab tak comfortable na ho jao.</p>
+      <p>This is an overview of the settings — the exact names and locations may vary slightly depending on your Claude/VS Code version, so I'll show the actual UI live on screen. For beginners: keep manual approval on until you're comfortable.</p>
     </div>
   </section>
 
@@ -455,7 +489,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Effort ka matlab hai Claude kitna "soch" ke jawab de raha hai. Chhote kaam ke liye Low, complex debugging/architecture ke liye High. Hamesha High use karna zaroori nahi.</p>
+      <p>Effort refers to how much Claude "thinks" before responding. Use Low for small tasks, High for complex debugging or architecture decisions. It's not necessary to always use High.</p>
     </div>
   </section>
 
@@ -499,7 +533,7 @@
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh rule bahut important hai — ek project, ek folder. Multiple projects ek hi folder mein rakhoge toh Claude ka context aur GitHub upload/deployment dono confusing ho jaate hain.</p>
+      <p>This rule is very important — one project, one folder. Keeping multiple projects in the same folder confuses both Claude's context and the GitHub upload/deployment process.</p>
     </div>
   </section>
 
@@ -529,7 +563,7 @@ Project B\  → its own folder
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Left side dekhiye — sab mixed hai, GitHub upload aur deployment dono confusing ho jaate hain. Right side follow karo: har project apna folder, apna repository.</p>
+      <p>Look at the left side — everything is mixed together, which makes both GitHub upload and deployment confusing. Follow the right side instead: every project gets its own folder and its own repository.</p>
     </div>
   </section>
 
@@ -566,7 +600,7 @@ Project B\  → its own folder
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Simple UI ya prototype projects ke liye plain HTML/CSS/JS best hai — koi build step nahi, GitHub Pages par bina extra setup ke deploy ho jaata hai.</p>
+      <p>For simple UI or prototype projects, plain HTML/CSS/JS is best — no build step required, and it deploys to GitHub Pages without any extra setup.</p>
     </div>
   </section>
 
@@ -621,7 +655,7 @@ Requirements:
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Vague prompt vague result deta hai. Structure, constraints, aur sabse important — end mein testing/validation instructions — dene se Claude ka output directly reliable aur GitHub-ready hota hai.</p>
+      <p>A vague prompt gives a vague result. Providing structure, constraints, and — most importantly — testing/validation instructions at the end makes Claude's output directly reliable and GitHub-ready.</p>
     </div>
   </section>
 
@@ -641,7 +675,7 @@ Requirements:
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh ek "closing instruction" hai jo har major prompt ke end mein add karni chahiye — Claude ko khud apna kaam test aur validate karne ko bolo, aur ek short summary maango.</p>
+      <p>This is a "closing instruction" that should be added to the end of every major prompt — ask Claude to test and validate its own work, and request a short summary.</p>
     </div>
   </section>
 
@@ -669,7 +703,7 @@ Requirements:
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Ek achhe prompt ke 8 hisse hote hain — last do sabse zyada ignore kiye jaate hain: test/sanity check aur fix issues. Yehi sabse zyada value add karte hain.</p>
+      <p>A good prompt has 8 parts — the last two are the most commonly ignored: test/sanity check and fix issues. These are the ones that add the most value.</p>
     </div>
   </section>
 
@@ -711,7 +745,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>"Let me know when you're done" sirf yeh batata hai ki code likha gaya — yeh nahi batata ki woh kaam bhi karta hai. Validation instruction add karne se Claude khud apni quality check karta hai.</p>
+      <p>"Let me know when you're done" only tells you that code was written — not that it actually works. Adding a validation instruction makes Claude check its own quality.</p>
     </div>
   </section>
 
@@ -747,7 +781,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>AI apna kaam test kar sakta hai — kya feature bana, kya code chal raha hai. Lekin "kya yeh business ke liye sahi hai" ya "kya UX achha hai" — yeh judgment sirf insaan de sakta hai.</p>
+      <p>AI can test its own work — whether the feature was built, whether the code runs. But judgments like "is this right for the business" or "is the UX good" can only be made by a human.</p>
     </div>
   </section>
 
@@ -783,7 +817,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Traditional AI mein hum sawaal poochte hain aur jawab khud implement karte hain. Agentic AI mein ek objective dete hain, aur AI khud plan banata hai, files modify karta hai, commands chalata hai, aur test karta hai.</p>
+      <p>In traditional AI, we ask a question and implement the answer ourselves. In agentic AI, we give an objective, and the AI plans, modifies files, runs commands, and tests on its own.</p>
     </div>
   </section>
 
@@ -815,7 +849,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Agentic AI zyada steps khud kar sakta hai, isliye usse apna kaam test/validate karne ko kehna workflow ko strong banata hai — lekin yeh human review ka replacement nahi hai. Final review hamesha AI validation + human validation hona chahiye.</p>
+      <p>Agentic AI can perform more steps independently, so asking it to test/validate its own work makes the workflow stronger — but this is not a replacement for human review. The final review should always be AI validation + human validation.</p>
     </div>
   </section>
 
@@ -855,7 +889,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Agentic AI ka biggest advantage — har chhota step manually batana zaroori nahi. Lekin risk bhi badhta hai, isliye Git aur review bahut important hai.</p>
+      <p>The biggest advantage of agentic AI is that you don't need to specify every small step manually. But the risk also increases, which is why Git and review are so important.</p>
     </div>
   </section>
 
@@ -885,7 +919,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh safe workflow hamesha follow karo — AI ne change kiya, review karo, diff dekho, test karo, phir hi commit aur push karo.</p>
+      <p>Always follow this safe workflow — once AI makes a change, review it, check the diff, test it, and only then commit and push.</p>
     </div>
   </section>
 
@@ -908,7 +942,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan main team ko pehle ye samjhaunga ki Git aur GitHub same cheez nahi hain. Git local version control karta hai, GitHub us repository ko online store/collaborate karne ke liye use hota hai.</p>
+      <p>Here I'll first explain to the team that Git and GitHub are not the same thing. Git handles local version control, while GitHub is used to store and collaborate on that repository online.</p>
     </div>
   </section>
 
@@ -956,7 +990,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Ab hum terminal use nahi karenge. Main directly browser se repository create karunga — naam dunga, description dunga, aur Public ya Private choose karunga.</p>
+      <p>We won't use the terminal from here. I'll create the repository directly from the browser — give it a name, a description, and choose Public or Private.</p>
     </div>
   </section>
 
@@ -983,7 +1017,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh decision casually mat lo. Company ya client se related code ho toh default Private rakho.</p>
+      <p>Don't take this decision casually. If the code relates to the company or a client, keep it Private by default.</p>
     </div>
   </section>
 
@@ -1032,7 +1066,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Repository page par jaake "Add file" → "Upload files" click karo, apne Windows File Explorer se saare files/folders select karo, aur commit karo. Terminal ki zaroorat nahi.</p>
+      <p>Go to the repository page, click "Add file" → "Upload files", select all the files/folders from your Windows File Explorer, and commit. No terminal needed.</p>
     </div>
   </section>
 
@@ -1071,7 +1105,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Commit karte waqt ek meaningful message likho — sirf "update" mat likho. Achha commit message baad mein history samajhne mein bahut madad karta hai.</p>
+      <p>Write a meaningful message when committing — don't just write "update". A good commit message helps a lot when understanding history later.</p>
     </div>
   </section>
 
@@ -1122,7 +1156,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>GitHub repository ka structure bilkul local project jaisa hi rakho. README aur .gitignore hamesha add karo, aur ek repo sirf ek project ke liye.</p>
+      <p>Keep the GitHub repository structure exactly the same as the local project. Always add a README and .gitignore, and keep one repo per project.</p>
     </div>
   </section>
 
@@ -1147,7 +1181,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Deployment ke liye GitHub Pages use karenge. Settings → Pages → "Deploy from a branch" → main branch → Save dabate hi GitHub apne aap deployment start kar dega.</p>
+      <p>We'll use GitHub Pages for deployment. Settings → Pages → "Deploy from a branch" → main branch → as soon as you click Save, GitHub automatically starts the deployment.</p>
     </div>
   </section>
 
@@ -1204,7 +1238,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yahan sabse important dropdown hai "Branch" — main select karenge. Agar site files kisi subfolder mein hain toh /docs choose karo, warna /(root) hi rakho. Save dabane ke baad GitHub deployment start kar deta hai — thoda time lagta hai, instant nahi hota.</p>
+      <p>The most important dropdown here is "Branch" — we'll select main. If the site files are in a subfolder, choose /docs, otherwise keep /(root). After clicking Save, GitHub starts the deployment — it takes a little time, it's not instant.</p>
     </div>
   </section>
 
@@ -1235,7 +1269,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Do URLs mein confuse mat ho — repository URL code dekhne ke liye hai, live URL actual website use karne ke liye hai. Demo share karna ho toh live URL bhejo.</p>
+      <p>Don't get confused between the two URLs — the repository URL is for viewing the code, and the live URL is for using the actual website. If you need to share a demo, send the live URL.</p>
     </div>
   </section>
 
@@ -1273,7 +1307,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Deploy hone ke baad seedha URL share mat karo — pehle khud test karo. CSS/JS load na ho toh zyadatar case ye hota hai ki file path galat hai ya folder structure GitHub par match nahi karta.</p>
+      <p>Don't share the URL right after deploying — test it yourself first. If CSS/JS doesn't load, it's usually because the file path is wrong or the folder structure doesn't match on GitHub.</p>
     </div>
   </section>
 
@@ -1294,7 +1328,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Website update karne ke liye redeploy manually trigger karne ki zaroorat nahi — main branch par naya commit jaate hi GitHub Pages automatically rebuild kar deta hai. Thoda time lagta hai.</p>
+      <p>There's no need to manually trigger a redeploy to update the website — as soon as a new commit goes to the main branch, GitHub Pages automatically rebuilds. It takes a little time.</p>
     </div>
   </section>
 
@@ -1312,7 +1346,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh sabse zyada misunderstand hone wala point hai. Repository private hone ka matlab yeh nahi ki deployed website bhi private hai — GitHub Pages se deploy ki gayi site aksar public URL par accessible hoti hai, chahe repo private ho.</p>
+      <p>This is the most commonly misunderstood point. A private repository doesn't mean the deployed website is also private — a site deployed via GitHub Pages is often accessible at a public URL, even if the repo is private.</p>
     </div>
   </section>
 
@@ -1358,7 +1392,7 @@ Then summarize what you tested."</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Private repo mein kisi ko access dena ho toh Settings → Collaborators mein jaake unka GitHub username search karo, invite karo, aur minimum zaroori permission do — sabko Admin mat bana do.</p>
+      <p>To give someone access to a private repo, go to Settings → Collaborators, search for their GitHub username, invite them, and grant only the minimum required permission — don't make everyone an Admin.</p>
     </div>
   </section>
 
@@ -1392,7 +1426,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Kabhi bhi API key, password, ya token directly code mein commit mat karo. .gitignore future commits ko rokta hai — agar secret ek baar commit ho chuka hai, toh usse history se hataana alag process hai.</p>
+      <p>Never commit an API key, password, or token directly in code. .gitignore only prevents future commits — if a secret has already been committed once, removing it from history is a separate process.</p>
     </div>
   </section>
 
@@ -1435,7 +1469,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh slide ek quick recap hai — session ke baad bhi reference ke roop mein use kar sakte ho.</p>
+      <p>This slide is a quick recap — you can use it as a reference even after the session.</p>
     </div>
   </section>
 
@@ -1462,7 +1496,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh saari mistakes real teams mein commonly hoti hain — inko avoid karna hi hamara half battle jeet lena hai.</p>
+      <p>All these mistakes commonly happen in real teams — avoiding them is half the battle won.</p>
     </div>
   </section>
 
@@ -1481,7 +1515,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Session ke end mein is checklist ko screen par rakho — team ise apne asli project par follow kar sakti hai.</p>
+      <p>Keep this checklist on screen at the end of the session — the team can follow it on their real project.</p>
     </div>
   </section>
 
@@ -1502,7 +1536,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Yeh poora flow ek nazar mein — Claude se le kar live URL tak. Isko yaad rakho, baaki sab isi ka detail hai.</p>
+      <p>This is the entire flow at a glance — from Claude all the way to the live URL. Remember this, everything else is just detail on top of it.</p>
     </div>
   </section>
 
@@ -1528,7 +1562,7 @@ Thumbs.db</pre>
     </div>
     <div class="notes">
       <div class="tag">Speaker Notes</div>
-      <p>Aaj ka takeaway simple hai — AI development ko fast banata hai, Git usse safe banata hai, aur achi engineering practice usse reliable banati hai. AI ek accelerator hai, replacement nahi.</p>
+      <p>Today's takeaway is simple — AI makes development faster, Git makes it safer, and good engineering practice makes it reliable. AI is an accelerator, not a replacement.</p>
     </div>
   </section>
 
@@ -1538,8 +1572,8 @@ Thumbs.db</pre>
 <div class="click-zone r" id="zoneR"></div>
 <div class="chrome">
   <div class="footer-bar">
-    <div class="footer-left">KT · Claude + VS Code + GitHub + Deployment</div>
     <div class="footer-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle light/dark theme">🌙</button>
       <button class="notes-toggle" id="notesToggle">🗣 Notes (N)</button>
       <button class="nav-btn" id="prev">‹</button>
       <div class="counter" id="counter">1 / 1</div>
@@ -1553,6 +1587,25 @@ Thumbs.db</pre>
   const bar = document.getElementById('bar');
   const counter = document.getElementById('counter');
   let idx = 0;
+
+  const themeToggle = document.getElementById('themeToggle');
+  function applyTheme(theme){
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      themeToggle.textContent = '🌙';
+    }
+  }
+  let savedTheme = 'dark';
+  try { savedTheme = localStorage.getItem('kt-deck-theme') || 'dark'; } catch (e) {}
+  applyTheme(savedTheme);
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+    try { localStorage.setItem('kt-deck-theme', next); } catch (e) {}
+  });
 
   function show(i){
     idx = Math.max(0, Math.min(slides.length - 1, i));
